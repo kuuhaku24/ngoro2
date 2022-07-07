@@ -1,3 +1,8 @@
+<?php 
+    include("koneksi.php");
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -20,20 +25,20 @@
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
                                     <div class="card-body">
-                                        <form>
+                                        <form action="" method="POST">
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com" />
+                                                <input class="form-control" id="inputEmail" name="inputEmail" type="email" placeholder="name@example.com" />
                                                 <label for="inputEmail">Email address</label>
                                             </div>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputPassword" type="password" placeholder="Password" />
+                                                <input class="form-control" id="inputPassword" name="inputPassword" type="password" placeholder="Password" />
                                                 <label for="inputPassword">Password</label>
                                             </div>
                                             
-                                            <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                                
-                                                <a class="btn btn-primary" href="index.php">Login</a>
-                                            </div>
+                                        <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                                            
+                                            <button type="submit" id="submitData" name="submitData" class="btn btn-primary">Login</button>
+                                        </div>
                                         </form>
                                     </div>
                                    
@@ -43,6 +48,32 @@
                     </div>
                 </main>
             </div>
+            <?php
+                if (isset($_POST['submitData'])) {
+
+                    $email = $_POST['inputEmail'];
+                    $password = $_POST['inputPassword'];
+                    $result = mysqli_query($conn, "SELECT * FROM tb_login WHERE username = '$email' AND password = '$password'");
+                    $num = mysqli_num_rows($result);
+                    if ($num == 0) {
+                        ?>
+                            <script>
+                                alert("Alamat Email atau Sandi Salah !");
+                                document.location = "login.php";
+                            </script>
+                        <?php 
+                    } else {
+                        while ($data = mysqli_fetch_array($result)) {
+                            $_SESSION["nama_admin"] = $data["nama_admin"];
+                        }
+                        ?>
+                            <script>
+                                document.location = "index.php";
+                            </script>
+                        <?php 
+                    }
+                  }
+            ?>
             <div id="layoutAuthentication_footer">
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
