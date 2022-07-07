@@ -69,7 +69,18 @@
             </div>
             <div id="layoutSidenav_content">
                 <main>
-                    
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <h1><center>Selamat Datang, </center></h1> <br>
+                    <h1><center><?= $_SESSION['nama_admin'] ?></center></h1>
                 </main>
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
